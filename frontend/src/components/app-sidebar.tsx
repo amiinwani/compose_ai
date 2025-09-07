@@ -71,7 +71,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   // Note: I'm using state to show active item.
   // IRL you should use the url/router.
   const [activeItem, setActiveItem] = React.useState(data.navMain[0])
-  const [generations, setGenerations] = React.useState(data.generations)
+  const [generations] = React.useState(data.generations)
   const { setOpen } = useSidebar()
 
   return (

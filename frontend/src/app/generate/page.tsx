@@ -9,7 +9,7 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
@@ -136,7 +136,7 @@ export default function Page() {
               <div key={index} className="space-y-4">
                 <div className="mx-[15%] flex flex-col gap-3">
                   <h3 className="text-lg font-semibold flex items-center gap-2 mb-2">
-                    <Image className="h-5 w-5" />
+                    <Image className="h-5 w-5" aria-label="Image icon" />
                     Image {index + 1} Template
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">

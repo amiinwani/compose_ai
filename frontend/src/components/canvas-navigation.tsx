@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { Command, History, User } from 'lucide-react'
+import { Command, History, User, Smartphone } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { HistoryDialog } from "./history-dialog"
 import { NavUser } from "./nav-user"
@@ -69,6 +69,14 @@ export function CanvasNavigation() {
             onClick={() => setShowHistory(true)}
           >
             <History className="size-5" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-10 w-10 p-0"
+            onClick={() => console.log('Device button clicked - placeholder')}
+          >
+            <Smartphone className="size-5" />
           </Button>
         </div>
 

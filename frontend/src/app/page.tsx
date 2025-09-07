@@ -2,10 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { 
   Upload, 
   Zap, 
@@ -20,6 +18,7 @@ import {
   Clock,
   CheckCircle
 } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -34,13 +33,13 @@ export default function Home() {
             <span className="text-xl font-bold">Compose AI</span>
           </div>
           <div className="hidden md:flex items-center space-x-6">
-            <a href="#features" className="text-sm font-medium hover:text-primary transition-colors">Features</a>
-            <a href="#demo" className="text-sm font-medium hover:text-primary transition-colors">Demo</a>
-            <a href="/generate" className="text-sm font-medium hover:text-primary transition-colors">Generate</a>
+            <Link href="#features" className="text-sm font-medium hover:text-primary transition-colors">Features</Link>
+            <Link href="#demo" className="text-sm font-medium hover:text-primary transition-colors">Demo</Link>
+            <Link href="/generate" className="text-sm font-medium hover:text-primary transition-colors">Generate</Link>
           </div>
-          <Button variant="outline" size="sm" asChild>
-            <a href="/generate">Try Demo</a>
-          </Button>
+            <Button variant="outline" size="sm" asChild>
+              <Link href="/generate">Try Demo</Link>
+            </Button>
         </div>
       </nav>
 
@@ -64,13 +63,13 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="text-lg px-8" asChild>
-              <a href="/generate">
+              <Link href="/generate">
                 <Play className="w-5 h-5 mr-2" />
                 Start Creating
-              </a>
+              </Link>
             </Button>
             <Button variant="outline" size="lg" className="text-lg px-8" asChild>
-              <a href="#demo">See How It Works</a>
+              <Link href="#demo">See How It Works</Link>
             </Button>
           </div>
         </div>
@@ -401,10 +400,10 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="secondary" className="text-lg px-8" asChild>
-                <a href="/generate">Try the Demo</a>
+                <Link href="/generate">Try the Demo</Link>
               </Button>
               <Button size="lg" variant="outline" className="text-lg px-8 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" asChild>
-                <a href="/generate">Export Your First Post</a>
+                <Link href="/generate">Export Your First Post</Link>
               </Button>
             </div>
           </div>
