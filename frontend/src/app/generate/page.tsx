@@ -198,11 +198,12 @@ export default function Page() {
                       </CardDescription>
                     </div>
                   </Card>
+                  </div>
                 </div>
 
                 {/* Custom Prompt Input */}
                 {selectedTemplates[index + 1] === 'custom' && (
-                  <div className="mt-4">
+                  <div className="mt-4 mx-[15%]">
                     <Label htmlFor={`custom-prompt-${index}`} className="text-sm font-medium">
                       Custom Prompt for Image {index + 1}
                     </Label>

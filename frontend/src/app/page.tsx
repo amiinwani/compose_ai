@@ -36,10 +36,10 @@ export default function Home() {
           <div className="hidden md:flex items-center space-x-6">
             <a href="#features" className="text-sm font-medium hover:text-primary transition-colors">Features</a>
             <a href="#demo" className="text-sm font-medium hover:text-primary transition-colors">Demo</a>
-            <a href="#about" className="text-sm font-medium hover:text-primary transition-colors">About</a>
+            <a href="/generate" className="text-sm font-medium hover:text-primary transition-colors">Generate</a>
           </div>
-          <Button variant="outline" size="sm">
-            Try Demo
+          <Button variant="outline" size="sm" asChild>
+            <a href="/generate">Try Demo</a>
           </Button>
         </div>
       </nav>
@@ -63,12 +63,14 @@ export default function Home() {
             and seamless workflow automation.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-lg px-8">
-              <Play className="w-5 h-5 mr-2" />
-              Start Creating
+            <Button size="lg" className="text-lg px-8" asChild>
+              <a href="/generate">
+                <Play className="w-5 h-5 mr-2" />
+                Start Creating
+              </a>
             </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8">
-              See How It Works
+            <Button variant="outline" size="lg" className="text-lg px-8" asChild>
+              <a href="#demo">See How It Works</a>
             </Button>
           </div>
         </div>
@@ -125,6 +127,61 @@ export default function Home() {
             </p>
           </div>
           
+          {/* Template Gallery */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-center mb-8">Choose Your Style</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
+              {[
+                { 
+                  id: "minecraft", 
+                  name: "Minecraft", 
+                  description: "Blocky, pixelated style",
+                  image: "https://www.minecraft.net/content/dam/minecraftnet/franchise/component-library/redeemheroa/Redeem-Hero_Mobile_576x324.png"
+                },
+                { 
+                  id: "cartoon", 
+                  name: "Cartoon", 
+                  description: "Animated, colorful style",
+                  image: "https://static0.moviewebimages.com/wordpress/wp-content/uploads/2024/05/35-all-time-best-cartoon-characters-ever-created-ranked.jpg"
+                },
+                { 
+                  id: "anime", 
+                  name: "Anime", 
+                  description: "Japanese animation style",
+                  image: "https://sm.ign.com/ign_ap/feature/t/the-top-25/the-top-25-greatest-anime-characters-of-all-time_ge1p.jpg"
+                },
+                { 
+                  id: "realistic", 
+                  name: "Realistic", 
+                  description: "Photo-realistic style",
+                  image: "https://images.stockcake.com/public/0/5/e/05edba27-2ba8-4d40-b42c-8908c8b2758b_large/child-s-pencil-portrait-stockcake.jpg"
+                },
+                { 
+                  id: "abstract", 
+                  name: "Abstract", 
+                  description: "Abstract artistic style",
+                  image: "https://i.insider.com/518946e46bb3f7f94b00000d?width=850&format=jpeg"
+                }
+              ].map((template) => (
+                <Card
+                  key={template.id}
+                  className="cursor-pointer transition-all hover:shadow-lg hover:scale-105 relative overflow-hidden h-32"
+                  style={{
+                    backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url(${template.image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                  }}
+                >
+                  <CardContent className="p-4 h-full flex flex-col justify-center text-white relative z-10">
+                    <h4 className="font-bold text-sm drop-shadow-lg">{template.name}</h4>
+                    <p className="text-xs text-gray-200 drop-shadow-md mt-1">{template.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+
           {/* Interactive Demo Area */}
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -141,7 +198,20 @@ export default function Home() {
                 <CardContent className="space-y-4">
                   <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center hover:border-primary/50 transition-colors cursor-pointer">
                     <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
-                    <p className="text-sm text-muted-foreground">Drop images here or click to upload</p>
+                    <div className="text-center">
+                      <div className="font-medium">Upload Images</div>
+                      <div className="text-sm text-muted-foreground">
+                        Click to select or drag & drop
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-center gap-4">
+                    <span className="text-sm font-medium">Number of images:</span>
+                    <div className="flex items-center gap-2">
+                      <Button variant="outline" size="sm">-</Button>
+                      <span className="text-sm font-bold w-6 text-center">1</span>
+                      <Button variant="outline" size="sm">+</Button>
+                    </div>
                   </div>
                   <Textarea 
                     placeholder="Describe your social media post... (e.g., 'Modern tech startup announcement with blue gradient background')"
@@ -149,7 +219,7 @@ export default function Home() {
                   />
                   <Button className="w-full">
                     <Sparkles className="w-4 h-4 mr-2" />
-                    Generate with AI
+                    Generate Canvas
                   </Button>
                 </CardContent>
               </Card>
@@ -237,15 +307,19 @@ export default function Home() {
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center">
                     <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                    Text prompting system
+                    Multiple style templates (Minecraft, Cartoon, Anime, Realistic, Abstract)
                   </li>
                   <li className="flex items-center">
                     <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                    Schema generation
+                    Custom prompt input system
                   </li>
                   <li className="flex items-center">
                     <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                    Background removal
+                    Multi-image generation (up to 10 images)
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
+                    Background removal & processing
                   </li>
                 </ul>
               </CardContent>
@@ -296,9 +370,9 @@ export default function Home() {
             <div className="grid md:grid-cols-5 gap-4">
               {[
                 { step: "1", title: "Upload", desc: "Images to GCP", icon: Upload },
-                { step: "2", title: "Schema", desc: "MongoDB storage", icon: Layers },
+                { step: "2", title: "Choose Style", desc: "Select template", icon: Palette },
                 { step: "3", title: "AI Generate", desc: "Prompt processing", icon: Sparkles },
-                { step: "4", title: "Edit", desc: "Node interface", icon: Wand2 },
+                { step: "4", title: "Canvas Edit", desc: "Node interface", icon: Wand2 },
                 { step: "5", title: "Export", desc: "Download ready", icon: Download }
               ].map((item, index) => (
                 <div key={index} className="text-center">
@@ -326,11 +400,11 @@ export default function Home() {
               Experience the magic of AI-powered social media content creation
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="secondary" className="text-lg px-8">
-                Try the Demo
+              <Button size="lg" variant="secondary" className="text-lg px-8" asChild>
+                <a href="/generate">Try the Demo</a>
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                Export Your First Post
+              <Button size="lg" variant="outline" className="text-lg px-8 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" asChild>
+                <a href="/generate">Export Your First Post</a>
               </Button>
             </div>
           </div>
