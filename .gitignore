@@ -151,3 +151,5 @@ test-results.xml
 # Local development
 .local/
 local/
+
+prompt.md 
