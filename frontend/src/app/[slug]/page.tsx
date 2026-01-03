@@ -10,8 +10,8 @@ import {
   Connection,
   Edge,
   Node,
-  NodeProps,
-  ReactFlowProvider
+  ReactFlowProvider,
+  NodeProps
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { Button } from "@/components/ui/button"
@@ -114,7 +114,7 @@ interface CanvasPageProps {
 }
 
 function CanvasFlow({ params }: CanvasPageProps) {
-  const [slug, setSlug] = React.useState<string | null>(null)
+  const [slug, setSlug] = React.useState<string>('')
   
   React.useEffect(() => {
     params.then((resolvedParams) => {
@@ -122,8 +122,8 @@ function CanvasFlow({ params }: CanvasPageProps) {
     })
   }, [params])
   
-  const [initialNodes] = React.useState(() => slug ? getInitialNodes(slug) : [])
-  const [initialViewport] = React.useState(() => slug ? getInitialViewport(slug) : { x: -100, y: -50, zoom: 0.6 })
+  const [initialNodes] = React.useState(() => getInitialNodes(slug))
+  const [initialViewport] = React.useState(() => getInitialViewport(slug))
   
   const [nodes, setNodes, onNodesChange] = useNodesState<Node<ImageNodeData>>(initialNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([])
@@ -310,14 +310,6 @@ function CanvasFlow({ params }: CanvasPageProps) {
   const nodeTypesWithHandlers = React.useMemo(() => ({
     imageNode: (props: NodeProps) => <CanvasImageNode {...props} onNodeClick={handleNodeClick} />
   }), [handleNodeClick])
-
-  if (!slug) {
-    return (
-      <div className="h-screen w-screen flex items-center justify-center">
-        <div className="text-lg">Loading...</div>
-      </div>
-    )
-  }
 
   return (
     <div className="h-screen w-screen relative">

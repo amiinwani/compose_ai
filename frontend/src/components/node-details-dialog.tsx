@@ -5,8 +5,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Download, Image as ImageIcon, Palette, Wand2 } from 'lucide-react'
-import Image from 'next/image'
 import { ImageNodeData } from "./canvas-image-node"
+import Image from 'next/image'
 
 interface NodeDetailsDialogProps {
   open: boolean

@@ -18,7 +18,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { Upload, Plus, Minus, Image, PenTool } from "lucide-react"
+import { Upload, Plus, Minus, Image as ImageIcon, PenTool } from "lucide-react"
 
 const templates = [
   { id: "minecraft", name: "Minecraft", description: "Blocky, pixelated style" },
@@ -136,7 +136,7 @@ export default function Page() {
               <div key={index} className="space-y-4">
                 <div className="mx-[15%] flex flex-col gap-3">
                   <h3 className="text-lg font-semibold flex items-center gap-2 mb-2">
-                    <Image className="h-5 w-5" aria-label="Image icon" />
+                    <ImageIcon className="h-5 w-5" />
                     Image {index + 1} Template
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">

@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,62 +20,106 @@ import {
   Clock,
   CheckCircle
 } from "lucide-react";
-import Link from "next/link";
+
+// Template data extracted for better maintainability
+const TEMPLATES = [
+  { 
+    id: "minecraft", 
+    name: "Minecraft", 
+    description: "Blocky, pixelated style",
+    image: "https://www.minecraft.net/content/dam/minecraftnet/franchise/component-library/redeemheroa/Redeem-Hero_Mobile_576x324.png"
+  },
+  { 
+    id: "cartoon", 
+    name: "Cartoon", 
+    description: "Animated, colorful style",
+    image: "https://static0.moviewebimages.com/wordpress/wp-content/uploads/2024/05/35-all-time-best-cartoon-characters-ever-created-ranked.jpg"
+  },
+  { 
+    id: "anime", 
+    name: "Anime", 
+    description: "Japanese animation style",
+    image: "https://sm.ign.com/ign_ap/feature/t/the-top-25/the-top-25-greatest-anime-characters-of-all-time_ge1p.jpg"
+  },
+  { 
+    id: "realistic", 
+    name: "Realistic", 
+    description: "Photo-realistic style",
+    image: "https://images.stockcake.com/public/0/5/e/05edba27-2ba8-4d40-b42c-8908c8b2758b_large/child-s-pencil-portrait-stockcake.jpg"
+  },
+  { 
+    id: "abstract", 
+    name: "Abstract", 
+    description: "Abstract artistic style",
+    image: "https://i.insider.com/518946e46bb3f7f94b00000d?width=850&format=jpeg"
+  }
+] as const;
+
+const WORKFLOW_STEPS = [
+  { step: "1", title: "Upload", desc: "Images to GCP", icon: Upload },
+  { step: "2", title: "Choose Style", desc: "Select template", icon: Palette },
+  { step: "3", title: "AI Generate", desc: "Prompt processing", icon: Sparkles },
+  { step: "4", title: "Canvas Edit", desc: "Node interface", icon: Wand2 },
+  { step: "5", title: "Export", desc: "Download ready", icon: Download }
+] as const;
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <Wand2 className="w-5 h-5 text-primary-foreground" />
+      <header>
+        <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" role="navigation" aria-label="Main navigation">
+          <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center" aria-hidden="true">
+                <Wand2 className="w-5 h-5 text-primary-foreground" />
+              </div>
+              <span className="text-xl font-bold">Compose AI</span>
             </div>
-            <span className="text-xl font-bold">Compose AI</span>
-          </div>
-          <div className="hidden md:flex items-center space-x-6">
-            <Link href="#features" className="text-sm font-medium hover:text-primary transition-colors">Features</Link>
-            <Link href="#demo" className="text-sm font-medium hover:text-primary transition-colors">Demo</Link>
-            <Link href="/generate" className="text-sm font-medium hover:text-primary transition-colors">Generate</Link>
-          </div>
+            <div className="hidden md:flex items-center space-x-6">
+              <a href="#features" className="text-sm font-medium hover:text-primary transition-colors">Features</a>
+              <a href="#demo" className="text-sm font-medium hover:text-primary transition-colors">Demo</a>
+              <Link href="/generate" className="text-sm font-medium hover:text-primary transition-colors">Generate</Link>
+            </div>
             <Button variant="outline" size="sm" asChild>
               <Link href="/generate">Try Demo</Link>
             </Button>
-        </div>
-      </nav>
+          </div>
+        </nav>
+      </header>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20 text-center">
-        <div className="max-w-4xl mx-auto">
-          <Badge variant="secondary" className="mb-4">
-            🚀 Hackathon Innovation
-          </Badge>
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
-            Compose, Edit & Export
-            <br />
-            <span className="text-primary">Social Media Posts</span>
-            <br />
-            in Seconds
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Transform the tedious process of social media content creation into a magical, 
-            instant experience through live image editing, intelligent prompt-based generation, 
-            and seamless workflow automation.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-lg px-8" asChild>
-              <Link href="/generate">
-                <Play className="w-5 h-5 mr-2" />
-                Start Creating
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8" asChild>
-              <Link href="#demo">See How It Works</Link>
-            </Button>
+      <main>
+        <section className="container mx-auto px-4 py-20 text-center" aria-labelledby="hero-heading">
+          <div className="max-w-4xl mx-auto">
+            <Badge variant="secondary" className="mb-4">
+              🚀 Hackathon Innovation
+            </Badge>
+            <h1 id="hero-heading" className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
+              Compose, Edit & Export
+              <br />
+              <span className="text-primary">Social Media Posts</span>
+              <br />
+              in Seconds
+            </h1>
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Transform the tedious process of social media content creation into a magical, 
+              instant experience through live image editing, intelligent prompt-based generation, 
+              and seamless workflow automation.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="text-lg px-8" asChild>
+                <Link href="/generate">
+                  <Play className="w-5 h-5 mr-2" aria-hidden="true" />
+                  Start Creating
+                </Link>
+              </Button>
+              <Button variant="outline" size="lg" className="text-lg px-8" asChild>
+                <a href="#demo">See How It Works</a>
+              </Button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
       {/* Problem Statement */}
       <section className="bg-muted/50 py-20">
@@ -130,48 +176,31 @@ export default function Home() {
           <div className="mb-16">
             <h3 className="text-2xl font-bold text-center mb-8">Choose Your Style</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
-              {[
-                { 
-                  id: "minecraft", 
-                  name: "Minecraft", 
-                  description: "Blocky, pixelated style",
-                  image: "https://www.minecraft.net/content/dam/minecraftnet/franchise/component-library/redeemheroa/Redeem-Hero_Mobile_576x324.png"
-                },
-                { 
-                  id: "cartoon", 
-                  name: "Cartoon", 
-                  description: "Animated, colorful style",
-                  image: "https://static0.moviewebimages.com/wordpress/wp-content/uploads/2024/05/35-all-time-best-cartoon-characters-ever-created-ranked.jpg"
-                },
-                { 
-                  id: "anime", 
-                  name: "Anime", 
-                  description: "Japanese animation style",
-                  image: "https://sm.ign.com/ign_ap/feature/t/the-top-25/the-top-25-greatest-anime-characters-of-all-time_ge1p.jpg"
-                },
-                { 
-                  id: "realistic", 
-                  name: "Realistic", 
-                  description: "Photo-realistic style",
-                  image: "https://images.stockcake.com/public/0/5/e/05edba27-2ba8-4d40-b42c-8908c8b2758b_large/child-s-pencil-portrait-stockcake.jpg"
-                },
-                { 
-                  id: "abstract", 
-                  name: "Abstract", 
-                  description: "Abstract artistic style",
-                  image: "https://i.insider.com/518946e46bb3f7f94b00000d?width=850&format=jpeg"
-                }
-              ].map((template) => (
+              {TEMPLATES.map((template) => (
                 <Card
                   key={template.id}
-                  className="cursor-pointer transition-all hover:shadow-lg hover:scale-105 relative overflow-hidden h-32"
-                  style={{
-                    backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url(${template.image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
+                  className="cursor-pointer transition-all hover:shadow-lg hover:scale-105 relative overflow-hidden h-32 group"
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Select ${template.name} template - ${template.description}`}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      // Handle template selection
+                    }
                   }}
                 >
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={template.image}
+                      alt={`${template.name} style template showing ${template.description}`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-transparent" />
+                  </div>
                   <CardContent className="p-4 h-full flex flex-col justify-center text-white relative z-10">
                     <h4 className="font-bold text-sm drop-shadow-lg">{template.name}</h4>
                     <p className="text-xs text-gray-200 drop-shadow-md mt-1">{template.description}</p>
@@ -195,8 +224,19 @@ export default function Home() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center hover:border-primary/50 transition-colors cursor-pointer">
-                    <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
+                  <div 
+                    className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center hover:border-primary/50 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                    role="button"
+                    tabIndex={0}
+                    aria-label="Upload images by clicking or dragging and dropping files"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        // Handle file upload
+                      }
+                    }}
+                  >
+                    <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" aria-hidden="true" />
                     <div className="text-center">
                       <div className="font-medium">Upload Images</div>
                       <div className="text-sm text-muted-foreground">
@@ -207,17 +247,31 @@ export default function Home() {
                   <div className="flex items-center justify-center gap-4">
                     <span className="text-sm font-medium">Number of images:</span>
                     <div className="flex items-center gap-2">
-                      <Button variant="outline" size="sm">-</Button>
-                      <span className="text-sm font-bold w-6 text-center">1</span>
-                      <Button variant="outline" size="sm">+</Button>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        aria-label="Decrease number of images"
+                        disabled
+                      >
+                        -
+                      </Button>
+                      <span className="text-sm font-bold w-6 text-center" aria-live="polite">1</span>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        aria-label="Increase number of images"
+                      >
+                        +
+                      </Button>
                     </div>
                   </div>
                   <Textarea 
                     placeholder="Describe your social media post... (e.g., 'Modern tech startup announcement with blue gradient background')"
                     className="min-h-[100px]"
+                    aria-label="Describe your social media post"
                   />
                   <Button className="w-full">
-                    <Sparkles className="w-4 h-4 mr-2" />
+                    <Sparkles className="w-4 h-4 mr-2" aria-hidden="true" />
                     Generate Canvas
                   </Button>
                 </CardContent>
@@ -367,21 +421,15 @@ export default function Home() {
           
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-5 gap-4">
-              {[
-                { step: "1", title: "Upload", desc: "Images to GCP", icon: Upload },
-                { step: "2", title: "Choose Style", desc: "Select template", icon: Palette },
-                { step: "3", title: "AI Generate", desc: "Prompt processing", icon: Sparkles },
-                { step: "4", title: "Canvas Edit", desc: "Node interface", icon: Wand2 },
-                { step: "5", title: "Export", desc: "Download ready", icon: Download }
-              ].map((item, index) => (
+              {WORKFLOW_STEPS.map((item, index) => (
                 <div key={index} className="text-center">
                   <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                    <item.icon className="w-8 h-8 text-primary-foreground" />
+                    <item.icon className="w-8 h-8 text-primary-foreground" aria-hidden="true" />
                   </div>
                   <h3 className="font-semibold mb-1">{item.title}</h3>
                   <p className="text-sm text-muted-foreground">{item.desc}</p>
                   {index < 4 && (
-                    <ArrowRight className="w-6 h-6 text-muted-foreground mx-auto mt-4 hidden md:block" />
+                    <ArrowRight className="w-6 h-6 text-muted-foreground mx-auto mt-4 hidden md:block" aria-hidden="true" />
                   )}
                 </div>
               ))}
@@ -409,13 +457,14 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </main>
 
       {/* Footer */}
-      <footer className="border-t py-12">
+      <footer className="border-t py-12" role="contentinfo">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center" aria-hidden="true">
                 <Wand2 className="w-5 h-5 text-primary-foreground" />
               </div>
               <span className="text-xl font-bold">Compose AI</span>

@@ -16,12 +16,12 @@ export interface ImageNodeData extends Record<string, unknown> {
 }
 
 interface CanvasImageNodeProps extends NodeProps {
+  data: ImageNodeData
   onNodeClick?: (data: ImageNodeData) => void
 }
 
 export function CanvasImageNode({ data, selected, onNodeClick }: CanvasImageNodeProps) {
-  const nodeData = data as ImageNodeData
-  const aspectRatio = nodeData.width / nodeData.height
+  const aspectRatio = data.width / data.height
   const nodeWidth = 220
   const nodeHeight = nodeWidth / aspectRatio
   
@@ -63,7 +63,7 @@ export function CanvasImageNode({ data, selected, onNodeClick }: CanvasImageNode
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation()
     if (onNodeClick) {
-      onNodeClick(nodeData)
+      onNodeClick(data)
     }
   }
   
@@ -103,18 +103,21 @@ export function CanvasImageNode({ data, selected, onNodeClick }: CanvasImageNode
         style={{ height: nodeHeight }}
       >
         <Image
-          src={nodeData.imageUrl}
-          alt={nodeData.title}
+          src={data.imageUrl}
+          alt={data.title}
           width={nodeWidth}
           height={nodeHeight}
           className="w-full h-full object-cover"
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
           onLoad={() => {
-            console.log('Image loaded successfully:', nodeData.imageUrl)
+            console.log('Image loaded successfully:', data.imageUrl)
           }}
-          onError={() => {
-            console.error('Image failed to load:', nodeData.imageUrl)
+          onError={(e) => {
+            console.error('Image failed to load:', data.imageUrl)
+            const target = e.target as HTMLImageElement
+            target.style.backgroundColor = '#f3f4f6'
+            target.style.display = 'block'
           }}
         />
         
@@ -125,7 +128,7 @@ export function CanvasImageNode({ data, selected, onNodeClick }: CanvasImageNode
       {/* Bottom Section - Colorful icons on the right end */}
       <div className="h-9 px-3 py-2 flex items-center justify-end bg-gradient-to-r from-gray-50 to-gray-100 rounded-b-lg">
         <div className="flex items-center gap-2">
-          {getTemplateIcons(nodeData.template)}
+          {getTemplateIcons(data.template)}
         </div>
       </div>
     </div>
